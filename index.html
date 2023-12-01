@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+    <title>Room Control</title>
+    
+</head>
+<body>
+
+    <style>
+        body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: black;
+}
+
+.toggle-container {
+    text-align: center;
+    display : flex;
+    flex-direction: column;
+}
+
+.toggle-btn {
+    display: inline-block;
+    padding: 20px 40px;
+    margin: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 2px solid white;
+    color: #fff;
+
+    border-radius: 5px;
+    border-radius  : 30px;
+}
+
+.toggle-btn.active {
+    background-color: #2ecc71;
+}
+    </style>
+
+    <div class="toggle-container">
+        <button class="toggle-btn" onclick="toggleButton(1)">Room Light</button>
+        <button class="toggle-btn" onclick="toggleButton(2)">Laptop Charger</button>
+        <button class="toggle-btn" onclick="toggleButton(3)">Phone chager</button>
+        <button class="toggle-btn" onclick="toggleButton(4)">Small LEDs</button>
+    </div>
+    <script>
+        function toggleButton(buttonNumber) {
+            var btn = document.querySelector('.toggle-btn:nth-child(' + buttonNumber + ')');
+            var urlOn, urlOff;
+    
+            // Set different actions for toggled on and off for each button
+            switch (buttonNumber) {
+                case 1:
+                    urlOn = "https://blr1.blynk.cloud/external/api/update?token=5pN3cst-c9iRBe8v67UtgXLOltt_49sO&v2=0";
+                    urlOff = "https://blr1.blynk.cloud/external/api/update?token=5pN3cst-c9iRBe8v67UtgXLOltt_49sO&v2=1";
+                    break;
+                case 2:
+                    urlOn = "https://blr1.blynk.cloud/external/api/update?token=5pN3cst-c9iRBe8v67UtgXLOltt_49sO&v1=0";
+                    urlOff = "https://blr1.blynk.cloud/external/api/update?token=5pN3cst-c9iRBe8v67UtgXLOltt_49sO&v1=1";
+                    break;
+                case 3:
+                    urlOn = "https://blr1.blynk.cloud/external/api/update?token=5pN3cst-c9iRBe8v67UtgXLOltt_49sO&v0=0";
+                    urlOff = "https://blr1.blynk.cloud/external/api/update?token=5pN3cst-c9iRBe8v67UtgXLOltt_49sO&v0=1";
+                    break;
+                case 4:
+                    urlOn = "https://blr1.blynk.cloud/external/api/update?token=5pN3cst-c9iRBe8v67UtgXLOltt_49sO&v3=0";
+                    urlOff = "https://blr1.blynk.cloud/external/api/update?token=5pN3cst-c9iRBe8v67UtgXLOltt_49sO&v3=1";
+                    break;
+                default:
+                    break;
+            }
+    
+            if (btn.classList.contains('active')) {
+                // If the button is active (toggled on), perform the action for toggled on
+                performAction(urlOn);
+            } else {
+                // If the button is not active (toggled off), perform the action for toggled off
+                performAction(urlOff);
+            }
+    
+            // Toggle the active class
+            btn.classList.toggle('active');
+        }
+    
+        function performAction(url) {
+            // You can customize this function to perform the desired action using AJAX
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Handle the successful response here
+                    console.log('Action performed successfully');
+                })
+                .catch(error => {
+                    // Handle errors here
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+    </script>
+    
+</body>
+</html>
