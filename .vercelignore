@@ -1,0 +1,5 @@
+# Ignore everything except the build folder
+*
+!/build
+!/package.json
+!/vercel.json
