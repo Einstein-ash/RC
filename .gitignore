@@ -8,8 +8,15 @@
 # testing
 /coverage
 
+# also other
+src
+.gitignore
+package-lock.json
+package.json
+README.md 
+
 # production
-/build
+# /build
 
 # misc
 .DS_Store
